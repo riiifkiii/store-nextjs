@@ -4,7 +4,9 @@ import { useEffect, useState } from "react"
 import { BsArrowRightShort, BsCart3, BsPerson } from 'react-icons/bs'
 
 const NavMenu = () => {
+
     const [categories, setCategories] = useState([])
+    const [carts, setCarts] = useState([])
 
     const getCategories = async () => {
         try {
@@ -16,9 +18,21 @@ const NavMenu = () => {
         }
     }
 
+    const getCart = async () => {
+        try {
+            const response = await fetch(`https://fakestoreapi.com/carts/2`)
+            const responseJson = await response.json()
+            setCarts(responseJson.products.length)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     useEffect(() => {
         getCategories()
+        getCart()
     },[])
+    
 
     return(
         <>
@@ -33,21 +47,23 @@ const NavMenu = () => {
                         <span className="group-hover:rotate-90 transition-all duration-300"><BsArrowRightShort /></span>
                         <ul className="absolute top-10 left-0 bg-white group-hover:border group-hover:border-slate-200 rounded z-20 w-0 overflow-hidden transition-all duration-300 group-hover:w-[200px]">
                             {
-                                categories.map((category, index) => <li key={index}><Link className="whitespace-nowrap w-full h-full py-3 px-2 block capitalize hover:bg-slate-100" href={`/category/${category.split(' ').join('-')}`}>{category}</Link></li>)
+                                categories?.map((category, index) => <li key={index}><Link className="whitespace-nowrap w-full h-full py-3 px-2 block capitalize hover:bg-slate-100" href={`/category/${category.split(' ').join('-')}`}>{category}</Link></li>)
                             }
                         </ul>
                     </li>
                 </ul>
                 <div className="ml-auto flex items-center justify-center gap-2">
-                    <button className="buttonIcon relative">
+                    <Link className="buttonIcon relative" href={`/carts/2`}>
                         <span className="flex items-center justify-center rounded-full w-[18px] aspect-square bg-red-500 text-slate-50 text-xs absolute -top-1 -right-1">
-                            5
+                            {
+                                carts
+                            }
                         </span>
                         <BsCart3 />
-                    </button>
-                    <button className="buttonIcon">
+                    </Link>
+                    <Link className="buttonIcon" href={'/login'}>
                         <BsPerson />
-                    </button>
+                    </Link>
                 </div>
             </nav>
         </>

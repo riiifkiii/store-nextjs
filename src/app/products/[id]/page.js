@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react"
 import { BsCart3, BsCartPlus, BsHeart, BsStar } from "react-icons/bs"
 
-const DetailProduct = ({params} : {params: {id: any}}) => {
+const DetailProduct = ({params}) => {
     const [product, setProduct] = useState([])
 
     const getProduct = async () => {
@@ -18,8 +18,6 @@ const DetailProduct = ({params} : {params: {id: any}}) => {
     useEffect(() => {
         getProduct()
     },[])
-
-    console.log(product)
 
     return(
         <>

@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { BsCart3, BsCartPlus, BsHeart, BsStar } from "react-icons/bs"
 
-const Card = ({data}:{data:any}) => {
+const Card = ({data}) => {
     return(
         <>
             <div className="lg:w-[300px] w-[200px] bg-white border border-slate-20 rounded-md relative overflow-hidden hover:shadow">
